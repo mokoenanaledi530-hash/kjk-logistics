@@ -1,1 +1,408 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>KJK Logistics | Quote Basket</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .cart-page {
+      padding: 70px 0;
+      min-height: 70vh;
+    }
 
+    .cart-layout {
+      display: grid;
+      grid-template-columns: 1.5fr .7fr;
+      gap: 30px;
+    }
+
+    .cart-box,
+    .quote-box {
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 15px;
+      padding: 25px;
+    }
+
+    .cart-item {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 20px;
+      padding: 20px 0;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    .cart-item h3 {
+      margin: 0 0 7px;
+    }
+
+    .cart-item p {
+      margin: 5px 0;
+      color: #6b7280;
+    }
+
+    .quantity {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .quantity button {
+      border: 1px solid #d1d5db;
+      background: white;
+      border-radius: 6px;
+      width: 32px;
+      height: 32px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .remove {
+      color: #dc2626;
+      border: 0;
+      background: transparent;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .quote-box {
+      height: fit-content;
+      background: #111827;
+      color: white;
+    }
+
+    .quote-box label {
+      display: block;
+      margin-top: 15px;
+    }
+
+    .quote-box input,
+    .quote-box textarea {
+      width: 100%;
+      margin-top: 7px;
+      padding: 12px;
+      border-radius: 7px;
+      border: 1px solid #d1d5db;
+      font: inherit;
+    }
+
+    .quote-button {
+      width: 100%;
+      margin-top: 20px;
+      padding: 14px;
+      border: 0;
+      border-radius: 8px;
+      background: #f59e0b;
+      color: #111827;
+      font-weight: 900;
+      cursor: pointer;
+    }
+
+    .empty-cart {
+      padding: 50px 10px;
+      text-align: center;
+      color: #6b7280;
+    }
+
+    @media(max-width:800px) {
+      .cart-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header class="topbar">
+  <div class="container nav">
+
+    <a class="brand" href="index.html">
+      KJK <span>LOGISTICS</span>
+    </a>
+
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="products.html">Products</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+
+  </div>
+</header>
+
+<main class="cart-page">
+
+<div class="container">
+
+  <p class="eyebrow">KJK LOGISTICS</p>
+
+  <h1>Quotation Basket</h1>
+
+  <p>
+    Add the parts you need and send your requirements to KJK Logistics.
+  </p>
+
+  <div class="cart-layout">
+
+    <section class="cart-box">
+
+      <h2>Your Parts</h2>
+
+      <div id="cartItems"></div>
+
+    </section>
+
+    <aside class="quote-box">
+
+      <h2>Request a Quote</h2>
+
+      <p>
+        Enter your details and we'll prepare your quotation.
+      </p>
+
+      <label>
+        Name
+        <input id="customerName" required>
+      </label>
+
+      <label>
+        Phone / WhatsApp
+        <input id="customerPhone" required>
+      </label>
+
+      <label>
+        Additional information
+        <textarea
+          id="customerMessage"
+          rows="4"
+          placeholder="Truck make, model, year or other requirements">
+        </textarea>
+      </label>
+
+      <button
+        class="quote-button"
+        onclick="sendQuote()">
+        Send Quote Request
+      </button>
+
+      <p id="quoteStatus"></p>
+
+    </aside>
+
+  </div>
+
+</div>
+
+</main>
+
+<footer>
+
+  <div class="container footer">
+
+    <span>
+      © <span id="year"></span> KJK Logistics
+    </span>
+
+    <span>
+      Truck Spares • Tyres • Parts
+    </span>
+
+  </div>
+
+</footer>
+
+<script>
+
+function getCart() {
+  return JSON.parse(
+    localStorage.getItem("kjkCart") || "[]"
+  );
+}
+
+function saveCart(cart) {
+  localStorage.setItem(
+    "kjkCart",
+    JSON.stringify(cart)
+  );
+}
+
+function renderCart() {
+
+  const cart = getCart();
+  const container = document.getElementById("cartItems");
+
+  if (!cart.length) {
+
+    container.innerHTML = `
+      <div class="empty-cart">
+        <h3>Your quotation basket is empty.</h3>
+        <p>Add truck parts from the catalogue.</p>
+        <a class="primary" href="products.html">
+          Browse Products
+        </a>
+      </div>
+    `;
+
+    return;
+  }
+
+  container.innerHTML = cart.map((item, index) => `
+
+    <div class="cart-item">
+
+      <div>
+
+        <h3>${item.name}</h3>
+
+        <p>
+          Part No: ${item.partNumber}
+        </p>
+
+        <p>
+          ${item.description}
+        </p>
+
+        <div class="quantity">
+
+          <button onclick="changeQuantity(${index}, -1)">
+            −
+          </button>
+
+          <strong>${item.quantity}</strong>
+
+          <button onclick="changeQuantity(${index}, 1)">
+            +
+          </button>
+
+        </div>
+
+        <button
+          class="remove"
+          onclick="removeItem(${index})">
+          Remove
+        </button>
+
+      </div>
+
+      <strong>
+        Price on Request
+      </strong>
+
+    </div>
+
+  `).join("");
+
+}
+
+function changeQuantity(index, amount) {
+
+  const cart = getCart();
+
+  cart[index].quantity += amount;
+
+  if (cart[index].quantity <= 0) {
+    cart.splice(index, 1);
+  }
+
+  saveCart(cart);
+
+  renderCart();
+}
+
+function removeItem(index) {
+
+  const cart = getCart();
+
+  cart.splice(index, 1);
+
+  saveCart(cart);
+
+  renderCart();
+}
+
+function sendQuote() {
+
+  const cart = getCart();
+
+  if (!cart.length) {
+
+    alert("Your quotation basket is empty.");
+
+    return;
+  }
+
+  const name =
+    document.getElementById("customerName").value.trim();
+
+  const phone =
+    document.getElementById("customerPhone").value.trim();
+
+  const message =
+    document.getElementById("customerMessage").value.trim();
+
+  if (!name || !phone) {
+
+    alert("Please enter your name and phone number.");
+
+    return;
+  }
+
+  let parts = "";
+
+  cart.forEach(item => {
+
+    parts +=
+      `• ${item.name} — Qty: ${item.quantity} — Part: ${item.partNumber}\n`;
+
+  });
+
+  const text =
+`KJK LOGISTICS QUOTATION REQUEST
+
+Customer: ${name}
+Phone: ${phone}
+
+PARTS REQUIRED:
+
+${parts}
+
+Additional information:
+${message}`;
+
+  /*
+    Replace YOUR_NUMBER with the
+    official KJK Logistics WhatsApp number.
+  */
+
+  const whatsappNumber = "YOUR_NUMBER";
+
+  if (whatsappNumber === "YOUR_NUMBER") {
+
+    document.getElementById("quoteStatus").textContent =
+      "The quotation is ready. Add the official KJK WhatsApp number in this file to activate sending.";
+
+    console.log(text);
+
+    return;
+  }
+
+  window.open(
+    "https://wa.me/" +
+    whatsappNumber +
+    "?text=" +
+    encodeURIComponent(text),
+    "_blank"
+  );
+}
+
+document.getElementById("year").textContent =
+  new Date().getFullYear();
+
+renderCart();
+
+</script>
+
+</body>
+</html>
