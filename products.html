@@ -1,91 +1,1608 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>KJK Logistics | Truck Parts Catalogue</title>
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="products.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#111827">
+<meta name="description" content="KJK Logistics truck spares, tyres and commercial vehicle parts.">
+<title>KJK Logistics | Truck Parts Catalogue</title>
+
+<style>
+*{box-sizing:border-box}
+
+html{scroll-behavior:smooth}
+
+body{
+  margin:0;
+  font-family:Arial,Helvetica,sans-serif;
+  background:#f8fafc;
+  color:#111827
+}
+
+.container{
+  width:min(1180px,92%);
+  margin:auto
+}
+
+.topbar{
+  position:sticky;
+  top:0;
+  z-index:100;
+  background:#111827;
+  color:white;
+  box-shadow:0 2px 15px rgba(0,0,0,.15)
+}
+
+.nav{
+  min-height:72px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:25px
+}
+
+.brand{
+  color:white;
+  text-decoration:none;
+  font-size:23px;
+  font-weight:900;
+  line-height:1
+}
+
+.brand span{
+  display:block;
+  font-size:8px;
+  letter-spacing:4px;
+  margin-top:5px
+}
+
+nav{
+  display:flex;
+  gap:22px
+}
+
+nav a{
+  color:white;
+  text-decoration:none;
+  font-size:14px
+}
+
+.quote-button{
+  background:#f59e0b;
+  color:#111827;
+  text-decoration:none;
+  padding:12px 17px;
+  border-radius:8px;
+  font-weight:900;
+  white-space:nowrap
+}
+
+.hero{
+  background:#111827;
+  color:white;
+  padding:70px 0 60px
+}
+
+.eyebrow{
+  font-size:11px;
+  letter-spacing:2px;
+  font-weight:900;
+  margin:0 0 12px
+}
+
+.hero h1{
+  font-size:clamp(40px,7vw,70px);
+  margin:0 0 15px;
+  line-height:1
+}
+
+.hero h1 span{
+  color:#f59e0b
+}
+
+.hero p{
+  max-width:680px;
+  color:#d1d5db;
+  line-height:1.7
+}
+
+.controls{
+  margin-top:30px;
+  display:grid;
+  grid-template-columns:2fr 1fr 1fr;
+  gap:12px
+}
+
+.controls input,
+.controls select{
+  width:100%;
+  padding:16px;
+  border:0;
+  border-radius:9px;
+  font:inherit;
+  outline:none
+}
+
+.catalogue{
+  padding:45px 0 90px
+}
+
+.result-bar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+  margin-bottom:25px
+}
+
+.result-count{
+  color:#6b7280;
+  font-size:14px
+}
+
+.product-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:22px
+}
+
+.product-card{
+  background:white;
+  border:1px solid #e5e7eb;
+  border-radius:15px;
+  overflow:hidden;
+  transition:.2s;
+  box-shadow:0 3px 12px rgba(0,0,0,.03)
+}
+
+.product-card:hover{
+  transform:translateY(-4px);
+  box-shadow:0 15px 35px rgba(0,0,0,.09)
+}
+
+.product-image{
+  height:190px;
+  background:#eef2f7;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:75px
+}
+
+.product-info{
+  padding:22px
+}
+
+.category-label{
+  font-size:10px;
+  letter-spacing:1.5px;
+  font-weight:900;
+  color:#6b7280
+}
+
+.product-info h2{
+  font-size:20px;
+  margin:8px 0
+}
+
+.product-info p{
+  color:#6b7280;
+  line-height:1.5
+}
+
+.part{
+  font-size:12px;
+  color:#6b7280;
+  margin:12px 0
+}
+
+.compatibility{
+  display:flex;
+  flex-wrap:wrap;
+  gap:5px;
+  margin:12px 0
+}
+
+.make-tag{
+  background:#eef2ff;
+  color:#3730a3;
+  border-radius:20px;
+  padding:5px 8px;
+  font-size:10px;
+  font-weight:800
+}
+
+.card-actions{
+  display:flex;
+  gap:8px;
+  margin-top:18px
+}
+
+.card-actions button{
+  flex:1;
+  padding:11px;
+  border-radius:7px;
+  cursor:pointer;
+  font-weight:900;
+  border:0
+}
+
+.details-button{
+  background:#e5e7eb;
+  color:#111827
+}
+
+.add-button{
+  background:#f59e0b;
+  color:#111827
+}
+
+.empty{
+  grid-column:1/-1;
+  text-align:center;
+  padding:70px 20px;
+  background:white;
+  border-radius:15px;
+  border:1px solid #e5e7eb
+}
+
+.empty h2{
+  margin-top:0
+}
+
+footer{
+  background:#030712;
+  color:#9ca3af;
+  padding:25px 0
+}
+
+.footer{
+  display:flex;
+  justify-content:space-between;
+  gap:20px
+}
+
+/* MODAL */
+
+.modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  z-index:500;
+  background:rgba(0,0,0,.72);
+  padding:20px;
+  overflow:auto
+}
+
+.modal.active{
+  display:flex;
+  align-items:center;
+  justify-content:center
+}
+
+.modal-box{
+  width:min(760px,100%);
+  background:white;
+  border-radius:18px;
+  overflow:hidden;
+  position:relative
+}
+
+.modal-image{
+  height:240px;
+  background:#eef2f7;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:100px
+}
+
+.modal-content{
+  padding:30px
+}
+
+.close{
+  position:absolute;
+  right:15px;
+  top:15px;
+  width:38px;
+  height:38px;
+  border:0;
+  border-radius:50%;
+  background:white;
+  font-size:24px;
+  cursor:pointer
+}
+
+.modal-content h2{
+  margin:0 0 10px;
+  font-size:32px
+}
+
+.modal-content p{
+  color:#4b5563;
+  line-height:1.6
+}
+
+.detail-row{
+  display:grid;
+  grid-template-columns:150px 1fr;
+  gap:15px;
+  padding:12px 0;
+  border-bottom:1px solid #e5e7eb
+}
+
+.detail-row strong{
+  color:#374151
+}
+
+.modal-actions{
+  display:flex;
+  gap:10px;
+  margin-top:25px
+}
+
+.modal-actions button{
+  flex:1;
+  padding:14px;
+  border:0;
+  border-radius:8px;
+  font-weight:900;
+  cursor:pointer
+}
+
+.quantity{
+  display:flex;
+  align-items:center;
+  gap:10px
+}
+
+.quantity button{
+  width:35px!important;
+  flex:none!important;
+  padding:8px!important;
+  background:#e5e7eb!important
+}
+
+.quantity span{
+  min-width:25px;
+  text-align:center;
+  font-weight:900
+}
+
+@media(max-width:900px){
+
+  .product-grid{
+    grid-template-columns:repeat(2,1fr)
+  }
+
+  .controls{
+    grid-template-columns:1fr 1fr
+  }
+
+  .controls input{
+    grid-column:1/-1
+  }
+
+}
+
+@media(max-width:650px){
+
+  nav{
+    display:none
+  }
+
+  .quote-button{
+    font-size:12px
+  }
+
+  .product-grid{
+    grid-template-columns:1fr
+  }
+
+  .controls{
+    grid-template-columns:1fr
+  }
+
+  .controls input{
+    grid-column:auto
+  }
+
+  .footer{
+    flex-direction:column
+  }
+
+  .detail-row{
+    grid-template-columns:1fr
+  }
+
+  .modal-actions{
+    flex-direction:column
+  }
+
+}
+</style>
 </head>
 
 <body>
 
 <header class="topbar">
-  <div class="container nav">
-    <a class="brand" href="index.html">KJK <span>LOGISTICS</span></a>
 
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="products.html">Products</a>
-      <a href="index.html#services">Services</a>
-      <a href="index.html#contact">Contact</a>
-    </nav>
+<div class="container nav">
 
-    <a class="quote-btn" href="cart.html">
-      Quote Basket (<span id="cartCount">0</span>)
-    </a>
-  </div>
+<a class="brand" href="index.html">
+KJK
+<span>LOGISTICS</span>
+</a>
+
+<nav>
+<a href="index.html">Home</a>
+<a href="products.html">Products</a>
+<a href="index.html#services">Services</a>
+<a href="index.html#contact">Contact</a>
+</nav>
+
+<a class="quote-button" href="cart.html">
+Quote Basket (<span id="cartCount">0</span>)
+</a>
+
+</div>
+
 </header>
 
-<main>
 
-<section class="catalogue-header">
-  <div class="container">
-    <p class="eyebrow">KJK LOGISTICS</p>
-    <h1>Truck Parts Catalogue</h1>
-    <p>
-      Find truck spares, commercial vehicle parts and tyres.
-      Select products to add them to your quotation basket.
-    </p>
-  </div>
+<section class="hero">
+
+<div class="container">
+
+<p class="eyebrow">
+KJK LOGISTICS • TRUCK SPARES
+</p>
+
+<h1>
+Find the right <span>truck part.</span>
+</h1>
+
+<p>
+Search our commercial vehicle parts catalogue by product,
+category, truck make or part number.
+</p>
+
+
+<div class="controls">
+
+<input
+id="search"
+type="search"
+placeholder="Search part, brand, model or part number..."
+>
+
+<select id="category">
+
+<option value="all">
+All Categories
+</option>
+
+<option value="engine">
+Engine & Components
+</option>
+
+<option value="brakes">
+Braking
+</option>
+
+<option value="clutch">
+Clutch
+</option>
+
+<option value="gearbox">
+Gearbox & Transmission
+</option>
+
+<option value="drivetrain">
+Differentials & Drivetrain
+</option>
+
+<option value="suspension">
+Suspension
+</option>
+
+<option value="steering">
+Steering
+</option>
+
+<option value="electrical">
+Electrical
+</option>
+
+<option value="cooling">
+Cooling
+</option>
+
+<option value="filters">
+Filters
+</option>
+
+<option value="lighting">
+Lighting
+</option>
+
+<option value="tyres">
+Truck & Trailer Tyres
+</option>
+
+<option value="wheels">
+Wheels & Rims
+</option>
+
+<option value="trailer">
+Trailer Parts
+</option>
+
+<option value="body">
+Cab & Body Parts
+</option>
+
+<option value="exhaust">
+Exhaust
+</option>
+
+<option value="batteries">
+Batteries
+</option>
+
+<option value="workshop">
+Workshop & Consumables
+</option>
+
+</select>
+
+
+<select id="make">
+
+<option value="all">
+All Truck Makes
+</option>
+
+<option value="Mercedes-Benz">
+Mercedes-Benz
+</option>
+
+<option value="Volvo">
+Volvo
+</option>
+
+<option value="Scania">
+Scania
+</option>
+
+<option value="MAN">
+MAN
+</option>
+
+<option value="DAF">
+DAF
+</option>
+
+<option value="Iveco">
+Iveco
+</option>
+
+<option value="Isuzu">
+Isuzu
+</option>
+
+<option value="Hino">
+Hino
+</option>
+
+<option value="Fuso">
+Fuso
+</option>
+
+<option value="UD">
+UD Trucks
+</option>
+
+<option value="Tata">
+Tata
+</option>
+
+</select>
+
+</div>
+
+</div>
+
 </section>
+
 
 <section class="catalogue">
 
-  <div class="container">
+<div class="container">
 
-    <div class="catalogue-tools">
+<div class="result-bar">
 
-      <input
-        id="search"
-        type="search"
-        placeholder="Search part, brand or part number..."
-      >
+<div>
+<strong>Truck Parts Catalogue</strong>
+<div class="result-count" id="resultCount"></div>
+</div>
 
-      <select id="category">
-        <option value="all">All Categories</option>
-        <option value="engine">Engine Parts</option>
-        <option value="brakes">Braking</option>
-        <option value="clutch">Clutch</option>
-        <option value="gearbox">Gearbox & Transmission</option>
-        <option value="suspension">Suspension</option>
-        <option value="steering">Steering</option>
-        <option value="electrical">Electrical</option>
-        <option value="cooling">Cooling</option>
-        <option value="filters">Filters</option>
-        <option value="lighting">Lighting</option>
-        <option value="tyres">Truck Tyres</option>
-        <option value="trailer">Trailer Parts</option>
-      </select>
+</div>
 
-    </div>
 
-    <div id="productGrid" class="product-grid"></div>
+<div id="productGrid" class="product-grid"></div>
 
-  </div>
+</div>
 
 </section>
 
-</main>
 
 <footer>
-  <div class="container footer">
-    <span>© <span id="year"></span> KJK Logistics</span>
-    <span>Truck Spares • Tyres • Parts</span>
-  </div>
+
+<div class="container footer">
+
+<span>
+© <span id="year"></span> KJK Logistics
+</span>
+
+<span>
+Truck Spares • Tyres • Commercial Vehicle Parts
+</span>
+
+</div>
+
 </footer>
 
-<script src="products.js"></script>
+
+<!-- PRODUCT DETAILS MODAL -->
+
+<div
+id="productModal"
+class="modal"
+onclick="closeModalOutside(event)"
+>
+
+<div class="modal-box">
+
+<button
+class="close"
+onclick="closeModal()"
+>
+×
+</button>
+
+<div
+id="modalImage"
+class="modal-image">
+</div>
+
+<div class="modal-content">
+
+<div
+id="modalCategory"
+class="category-label">
+</div>
+
+<h2 id="modalName"></h2>
+
+<p id="modalDescription"></p>
+
+<div class="detail-row">
+
+<strong>Part Number</strong>
+
+<span id="modalPart"></span>
+
+</div>
+
+<div class="detail-row">
+
+<strong>Compatible Makes</strong>
+
+<span id="modalMakes"></span>
+
+</div>
+
+<div class="detail-row">
+
+<strong>Compatible Models</strong>
+
+<span id="modalModels"></span>
+
+</div>
+
+<div class="detail-row">
+
+<strong>Price</strong>
+
+<span>Price on Request</span>
+
+</div>
+
+<div class="detail-row">
+
+<strong>Stock</strong>
+
+<span>Confirm availability</span>
+
+</div>
+
+<div class="modal-actions">
+
+<div class="quantity">
+
+<button onclick="changeModalQuantity(-1)">
+−
+</button>
+
+<span id="modalQuantity">1</span>
+
+<button onclick="changeModalQuantity(1)">
++
+</button>
+
+</div>
+
+<button
+class="add-button"
+onclick="addModalProduct()"
+>
+Add to Quote
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<script>
+
+/* =====================================================
+   KJK LOGISTICS PRODUCT DATABASE
+   Prices and stock intentionally not invented.
+   ===================================================== */
+
+const products = [
+
+{
+id:"ENG-001",
+name:"Diesel Air Filter",
+category:"filters",
+icon:"🔵",
+partNumber:"KJK-AF-001",
+description:"Heavy-duty engine air filtration component.",
+makes:["Mercedes-Benz","Volvo","Scania","MAN","DAF"],
+models:["Various commercial vehicle applications"]
+},
+
+{
+id:"ENG-002",
+name:"Diesel Fuel Filter",
+category:"filters",
+icon:"⚙️",
+partNumber:"KJK-FF-001",
+description:"Diesel fuel filtration component for commercial vehicles.",
+makes:["Mercedes-Benz","Volvo","Scania","MAN","Iveco"],
+models:["Various diesel applications"]
+},
+
+{
+id:"ENG-003",
+name:"Engine Oil Filter",
+category:"filters",
+icon:"🛢️",
+partNumber:"KJK-OF-001",
+description:"Heavy-duty engine oil filtration component.",
+makes:["Mercedes-Benz","Volvo","Scania","MAN","DAF","Iveco"],
+models:["Various truck applications"]
+},
+
+{
+id:"ENG-004",
+name:"Water Pump",
+category:"cooling",
+icon:"💧",
+partNumber:"KJK-WP-001",
+description:"Heavy-duty diesel engine cooling water pump.",
+makes:["Mercedes-Benz","Volvo","Scania","MAN","DAF"],
+models:["Application dependent"]
+},
+
+{
+id:"ENG-005",
+name:"Engine Gasket Set",
+category:"engine",
+icon:"🔧",
+partNumber:"KJK-GS-001",
+description:"Engine gasket components for commercial vehicle applications.",
+makes:["Mercedes-Benz","Volvo","Scania","MAN"],
+models:["Application dependent"]
+},
+
+{
+id:"BRK-001",
+name:"Heavy Duty Brake Pad Set",
+category:"brakes",
+icon:"🛑",
+partNumber:"KJK-BP-001",
+description:"Commercial vehicle brake pad set.",
+makes:["Mercedes-Benz","Volvo","Scania","MAN","DAF"],
+models:["Application dependent"]
+},
+
+{
+id:"BRK-002",
+name:"Truck Brake Disc",
+category:"brakes",
+icon:"⭕",
+partNumber:"KJK-BD-001",
+description:"Heavy-duty commercial vehicle brake disc.",
+makes:["Mercedes-Benz","Volvo","Scania","MAN","DAF"],
+models:["Application dependent"]
+},
+
+{
+id:"BRK-003",
+name:"Truck Brake Drum",
+category:"brakes",
+icon:"⭕",
+partNumber:"KJK-BD-002",
+description:"Commercial truck brake drum.",
+makes:["Mercedes-Benz","Volvo","Scania","MAN","Hino","Isuzu"],
+models:["Application dependent"]
+},
+
+{
+id:"BRK-004",
+name:"Brake Chamber",
+category:"brakes",
+icon:"🔘",
+partNumber:"KJK-BC-001",
+description:"Air brake chamber for commercial vehicle applications.",
+makes:["Mercedes-Benz","Volvo","Scania","MAN","DAF"],
+models:["Application dependent"]
+},
+
+{
+id:"CLT-001",
+name:"Heavy Duty Clutch Kit",
+category:"clutch",
+icon:"⚙️",
+partNumber:"KJK-CL-001",
+description:"Complete commercial vehicle clutch kit.",
+makes:["Mercedes-Benz","Volvo","Scania","MAN","DAF","Iveco"],
+models:["Application dependent"]
+},
+
+{
+id:"CLT-002",
+name:"Clutch Release Bearing",
+category:"clutch",
+icon:"⚙️",
+partNumber:"KJK-CR-001",
+description:"Commercial vehicle clutch release bearing.",
+makes:["Mercedes-Benz","Volvo","Scania","MAN"],
+models:["Application dependent"]
+},
+
+{
+id:"GBX-001",
+name:"Gearbox Bearing",
+category:"gearbox",
+icon:"⚙️",
+partNumber:"KJK-GB-001",
+description:"Heavy-duty transmission bearing.",
+makes:["Mercedes-Benz","Volvo","Scania","MAN"],
+models:["Application dependent"]
+},
+
+{
+id:"GBX-002",
+name:"Gearbox Seal",
+category:"gearbox",
+icon:"🔩",
+partNumber:"KJK-GS-002",
+description:"Commercial vehicle gearbox sealing component.",
+makes:["Mercedes-Benz","Volvo","Scania","MAN","DAF"],
+models:["Application dependent"]
+},
+
+{
+id:"DRV-001",
+name:"Differential Bearing",
+category:"drivetrain",
+icon:"⚙️",
+partNumber:"KJK-DF-001",
+description:"Heavy-duty differential bearing.",
+makes:["Mercedes-Benz","Volvo","Scania","MAN","DAF"],
+models:["Application dependent"]
+},
+
+{
+id:"DRV-002",
+name:"Propshaft Component",
+category:"drivetrain",
+icon:"🔩",
+partNumber:"KJK-PS-001",
+description:"Commercial vehicle driveline component.",
+makes:["Mercedes-Benz","Volvo","Scania","MAN","DAF"],
+models:["Application dependent"]
+},
+
+{
+id:"SUS-001",
+name:"Heavy Duty Shock Absorber",
+category:"suspension",
+icon:"🔧",
+partNumber:"KJK-SA-001",
+description:"Heavy-duty truck suspension shock absorber.",
+makes:["Mercedes-Benz","Volvo","Scania","MAN","DAF"],
+models:["Application dependent"]
+},
+
+{
+id:"SUS-002",
+name:"Air Suspension Bag",
+category:"suspension",
+icon:"🔘",
+partNumber:"KJK-AS-001",
+description:"Commercial truck air suspension component.",
+makes:["Mercedes-Benz","Volvo","Scania","MAN","DAF"],
+models:["Application dependent"]
+},
+
+{
+id:"SUS-003",
+name:"Suspension Bush",
+category:"suspension",
+icon:"⚫",
+partNumber:"KJK-SB-001",
+description:"Heavy-duty suspension bush.",
+makes:["Mercedes-Benz","Volvo","Scania","MAN","Hino","Isuzu"],
+models:["Application dependent"]
+},
+
+{
+id:"STR-001",
+name:"Steering Component",
+category:"steering",
+icon:"🎯",
+partNumber:"KJK-ST-001",
+description:"Heavy-duty commercial vehicle steering component.",
+makes:["Mercedes-Benz","Volvo","Scania","MAN","DAF"],
+models:["Application dependent"]
+},
+
+{
+id:"STR-002",
+name:"Tie Rod End",
+category:"steering",
+icon:"🔩",
+partNumber:"KJK-TR-002",
+description:"Commercial vehicle steering linkage component.",
+makes:["Mercedes-Benz","Volvo","Scania","MAN","Isuzu","Hino"],
+models:["Application dependent"]
+},
+
+{
+id:"ELE-001",
+name:"Truck Alternator",
+category:"electrical",
+icon:"⚡",
+partNumber:"KJK-ALT-001",
+description:"Commercial vehicle alternator.",
+makes:["Mercedes-Benz","Volvo","Scania","MAN","DAF","Iveco"],
+models:["Application dependent"]
+},
+
+{
+id:"ELE-002",
+name:"Truck Starter Motor",
+category:"electrical",
+icon:"⚡",
+partNumber:"KJK-STR-001",
+description:"Heavy-duty diesel starter motor.",
+makes:["Mercedes-Benz","Volvo","Scania","MAN","DAF","Iveco"],
+models:["Application dependent"]
+},
+
+{
+id:"ELE-003",
+name:"Truck Battery",
+category:"batteries",
+icon:"🔋",
+partNumber:"KJK-BAT-001",
+description:"Commercial vehicle battery. Confirm voltage and capacity before ordering.",
+makes:["Mercedes-Benz","Volvo","Scania","MAN","DAF","Hino","Isuzu","Fuso"],
+models:["Application dependent"]
+},
+
+{
+id:"COL-001",
+name:"Truck Radiator",
+category:"cooling",
+icon:"❄️",
+partNumber:"KJK-RAD-001",
+description:"Heavy-duty engine cooling radiator.",
+makes:["Mercedes-Benz","Volvo","Scania","MAN","DAF"],
+models:["Application dependent"]
+},
+
+{
+id:"COL-002",
+name:"Radiator Hose",
+category:"cooling",
+icon:"🔵",
+partNumber:"KJK-RH-001",
+description:"Heavy-duty cooling system hose.",
+makes:["Mercedes-Benz","Volvo","Scania","MAN","DAF","Hino","Isuzu"],
+models:["Application dependent"]
+},
+
+{
+id:"LGT-001",
+name:"LED Truck Headlight",
+category:"lighting",
+icon:"💡",
+partNumber:"KJK-LT-001",
+description:"Commercial vehicle LED lighting component.",
+makes:["Mercedes-Benz","Volvo","Scania","MAN","DAF","Iveco"],
+models:["Application dependent"]
+},
+
+{
+id:"LGT-002",
+name:"Truck Rear Light",
+category:"lighting",
+icon:"🔴",
+partNumber:"KJK-LT-002",
+description:"Heavy-duty rear lighting component.",
+makes:["Mercedes-Benz","Volvo","Scania","MAN","DAF","Hino","Isuzu"],
+models:["Application dependent"]
+},
+
+{
+id:"TYR-001",
+name:"Heavy Truck Tyre",
+category:"tyres",
+icon:"🛞",
+partNumber:"KJK-TY-001",
+description:"Commercial truck tyre. Confirm tyre size, axle position and load rating before purchase.",
+makes:["Mercedes-Benz","Volvo","Scania","MAN","DAF","Iveco","MAN"],
+models:["Size and application dependent"]
+},
+
+{
+id:"TYR-002",
+name:"Trailer Tyre",
+category:"tyres",
+icon:"🛞",
+partNumber:"KJK-TY-002",
+description:"Commercial trailer tyre. Confirm size and load rating.",
+makes:["Various"],
+models:["Size and application dependent"]
+},
+
+{
+id:"WHL-001",
+name:"Truck Steel Rim",
+category:"wheels",
+icon:"⭕",
+partNumber:"KJK-WR-001",
+description:"Commercial truck wheel rim.",
+makes:["Mercedes-Benz","Volvo","Scania","MAN","DAF"],
+models:["Confirm wheel specification"]
+},
+
+{
+id:"TRL-001",
+name:"Trailer Brake Component",
+category:"trailer",
+icon:"🔧",
+partNumber:"KJK-TR-001",
+description:"Heavy-duty trailer braking component.",
+makes:["Various"],
+models:["Trailer application dependent"]
+},
+
+{
+id:"TRL-002",
+name:"Trailer Suspension Component",
+category:"trailer",
+icon:"🔩",
+partNumber:"KJK-TR-002",
+description:"Commercial trailer suspension component.",
+makes:["Various"],
+models:["Trailer application dependent"]
+},
+
+{
+id:"BDY-001",
+name:"Truck Mirror",
+category:"body",
+icon:"🪞",
+partNumber:"KJK-MR-001",
+description:"Commercial truck exterior mirror.",
+makes:["Mercedes-Benz","Volvo","Scania","MAN","DAF","Iveco"],
+models:["Application dependent"]
+},
+
+{
+id:"BDY-002",
+name:"Cabin Component",
+category:"body",
+icon:"🚛",
+partNumber:"KJK-CB-001",
+description:"Commercial vehicle cab/body replacement component.",
+makes:["Mercedes-Benz","Volvo","Scania","MAN","DAF"],
+models:["Application dependent"]
+},
+
+{
+id:"EXH-001",
+name:"Exhaust Component",
+category:"exhaust",
+icon:"💨",
+partNumber:"KJK-EX-001",
+description:"Commercial vehicle exhaust component.",
+makes:["Mercedes-Benz","Volvo","Scania","MAN","DAF","Iveco"],
+models:["Application dependent"]
+},
+
+{
+id:"WRK-001",
+name:"Workshop Consumables",
+category:"workshop",
+icon:"🧰",
+partNumber:"KJK-WK-001",
+description:"General workshop consumables and maintenance products.",
+makes:["Various"],
+models:["Workshop application"]
+}
+
+];
+
+
+/* =====================================================
+   CATEGORY NAMES
+   ===================================================== */
+
+const categoryNames = {
+
+engine:"Engine & Components",
+brakes:"Braking",
+clutch:"Clutch",
+gearbox:"Gearbox & Transmission",
+drivetrain:"Differentials & Drivetrain",
+suspension:"Suspension",
+steering:"Steering",
+electrical:"Electrical",
+cooling:"Cooling",
+filters:"Filters",
+lighting:"Lighting",
+tyres:"Truck & Trailer Tyres",
+wheels:"Wheels & Rims",
+trailer:"Trailer Parts",
+body:"Cab & Body Parts",
+exhaust:"Exhaust",
+batteries:"Batteries",
+workshop:"Workshop & Consumables"
+
+};
+
+
+/* =====================================================
+   CART
+   ===================================================== */
+
+function getCart(){
+
+return JSON.parse(
+localStorage.getItem("kjkCart") || "[]"
+);
+
+}
+
+function saveCart(cart){
+
+localStorage.setItem(
+"kjkCart",
+JSON.stringify(cart)
+);
+
+}
+
+function updateCartCount(){
+
+const cart=getCart();
+
+document.getElementById("cartCount").textContent=
+
+cart.reduce(
+(total,item)=>total+(item.quantity || 1),
+0
+);
+
+}
+
+
+/* =====================================================
+   ADD PRODUCT
+   ===================================================== */
+
+function addProduct(id,quantity=1){
+
+const product=products.find(
+p=>p.id===id
+);
+
+if(!product)return;
+
+const cart=getCart();
+
+const existing=cart.find(
+item=>item.id===id
+);
+
+if(existing){
+
+existing.quantity+=quantity;
+
+}else{
+
+cart.push({
+...product,
+quantity:quantity
+});
+
+}
+
+saveCart(cart);
+
+updateCartCount();
+
+alert(
+product.name+
+" added to your quotation basket."
+);
+
+}
+
+
+/* =====================================================
+   SEARCH / FILTER
+   ===================================================== */
+
+function renderProducts(){
+
+const term=
+document.getElementById("search")
+.value
+.toLowerCase()
+.trim();
+
+const selectedCategory=
+document.getElementById("category")
+.value;
+
+const selectedMake=
+document.getElementById("make")
+.value;
+
+const filtered=products.filter(product=>{
+
+const searchable=
+
+product.name+
+" "+
+product.description+
+" "+
+product.partNumber+
+" "+
+product.makes.join(" ")+
+" "+
+product.models.join(" ");
+
+const matchesSearch=
+searchable
+.toLowerCase()
+.includes(term);
+
+const matchesCategory=
+selectedCategory==="all" ||
+product.category===selectedCategory;
+
+const matchesMake=
+selectedMake==="all" ||
+product.makes.includes(selectedMake) ||
+product.makes.includes("Various");
+
+return(
+matchesSearch &&
+matchesCategory &&
+matchesMake
+);
+
+});
+
+
+document.getElementById("resultCount").textContent=
+
+filtered.length+
+" product"+
+(filtered.length===1?"":"s")+
+" found";
+
+
+const grid=
+document.getElementById("productGrid");
+
+
+if(!filtered.length){
+
+grid.innerHTML=`
+
+<div class="empty">
+
+<h2>No matching parts found</h2>
+
+<p>
+Try another search, category or truck make.
+</p>
+
+</div>
+
+`;
+
+return;
+
+}
+
+
+grid.innerHTML=
+
+filtered.map(product=>`
+
+<article class="product-card">
+
+<div class="product-image">
+${product.icon}
+</div>
+
+<div class="product-info">
+
+<div class="category-label">
+${categoryNames[product.category] || product.category}
+</div>
+
+<h2>
+${product.name}
+</h2>
+
+<p>
+${product.description}
+</p>
+
+<div class="part">
+Part No: <strong>${product.partNumber}</strong>
+</div>
+
+<div class="compatibility">
+
+${product.makes.slice(0,5).map(make=>`
+
+<span class="make-tag">
+${make}
+</span>
+
+`).join("")}
+
+</div>
+
+<div class="card-actions">
+
+<button
+class="details-button"
+onclick="openProduct('${product.id}')"
+>
+Details
+</button>
+
+<button
+class="add-button"
+onclick="addProduct('${product.id}')"
+>
+Add to Quote
+</button>
+
+</div>
+
+</div>
+
+</article>
+
+`).join("");
+
+}
+
+
+/* =====================================================
+   PRODUCT DETAILS
+   ===================================================== */
+
+let modalProduct=null;
+let modalQuantity=1;
+
+
+function openProduct(id){
+
+modalProduct=
+products.find(p=>p.id===id);
+
+if(!modalProduct)return;
+
+modalQuantity=1;
+
+document.getElementById("modalImage")
+.textContent=
+modalProduct.icon;
+
+document.getElementById("modalCategory")
+.textContent=
+categoryNames[modalProduct.category] ||
+modalProduct.category;
+
+document.getElementById("modalName")
+.textContent=
+modalProduct.name;
+
+document.getElementById("modalDescription")
+.textContent=
+modalProduct.description;
+
+document.getElementById("modalPart")
+.textContent=
+modalProduct.partNumber;
+
+document.getElementById("modalMakes")
+.textContent=
+modalProduct.makes.join(", ");
+
+document.getElementById("modalModels")
+.textContent=
+modalProduct.models.join(", ");
+
+document.getElementById("modalQuantity")
+.textContent=
+modalQuantity;
+
+document.getElementById("productModal")
+.classList.add("active");
+
+document.body.style.overflow="hidden";
+
+}
+
+
+function closeModal(){
+
+document.getElementById("productModal")
+.classList.remove("active");
+
+document.body.style.overflow="";
+
+modalProduct=null;
+
+}
+
+
+function closeModalOutside(event){
+
+if(event.target.id==="productModal"){
+
+closeModal();
+
+}
+
+}
+
+
+function changeModalQuantity(amount){
+
+modalQuantity+=amount;
+
+if(modalQuantity<1){
+
+modalQuantity=1;
+
+}
+
+if(modalQuantity>99){
+
+modalQuantity=99;
+
+}
+
+document.getElementById("modalQuantity")
+.textContent=
+modalQuantity;
+
+}
+
+
+function addModalProduct(){
+
+if(!modalProduct)return;
+
+addProduct(
+modalProduct.id,
+modalQuantity
+);
+
+closeModal();
+
+}
+
+
+/* =====================================================
+   KEYBOARD SUPPORT
+   ===================================================== */
+
+document.addEventListener(
+"keydown",
+event=>{
+
+if(event.key==="Escape"){
+
+closeModal();
+
+}
+
+}
+);
+
+
+/* =====================================================
+   EVENTS
+   ===================================================== */
+
+document.getElementById("search")
+.addEventListener(
+"input",
+renderProducts
+);
+
+document.getElementById("category")
+.addEventListener(
+"change",
+renderProducts
+);
+
+document.getElementById("make")
+.addEventListener(
+"change",
+renderProducts
+);
+
+document.getElementById("year")
+.textContent=
+new Date().getFullYear();
+
+
+/* =====================================================
+   START
+   ===================================================== */
+
+renderProducts();
+
+updateCartCount();
+
+</script>
 
 </body>
 </html>
