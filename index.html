@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#111827">
+  <meta name="description" content="KJK Logistics - Truck spares, tyres and commercial vehicle parts.">
+  <title>KJK Logistics | Truck Spares & Tyres</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+<header class="topbar">
+  <div class="container nav">
+    <a class="brand" href="#home">KJK <span>LOGISTICS</span></a>
+
+    <nav>
+      <a href="#products">Products</a>
+      <a href="#services">Services</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+
+    <a class="quote-btn" href="#contact">Request a Quote</a>
+  </div>
+</header>
+
+<main>
+
+<section id="home" class="hero">
+  <div class="container hero-grid">
+
+    <div>
+      <p class="eyebrow">TRUCK SPARES • TYRES • COMMERCIAL VEHICLES</p>
+
+      <h1>
+        Keep your trucks
+        <strong>moving.</strong>
+      </h1>
+
+      <p class="hero-copy">
+        A one-stop shop for truck parts, tyres and commercial vehicle spares.
+      </p>
+
+      <div class="actions">
+        <a class="primary" href="#products">Shop Parts</a>
+        <a class="secondary" href="#contact">Get a Quote</a>
+      </div>
+    </div>
+
+    <div class="hero-card">
+      <div class="wheel">◉</div>
+      <div>
+        <strong>Commercial Vehicle Parts</strong>
+        <span>Built for the road ahead.</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section id="products" class="section">
+
+  <div class="container">
+
+    <div class="section-heading">
+      <p class="eyebrow">PRODUCT RANGE</p>
+      <h2>Truck parts & tyres</h2>
+      <p>
+        Browse our main product categories.
+      </p>
+    </div>
+
+    <div class="cards">
+
+      <article class="card">
+        <div class="icon">⚙</div>
+        <h3>Engine Parts</h3>
+        <p>Filters, belts, gaskets, pumps and engine components.</p>
+      </article>
+
+      <article class="card">
+        <div class="icon">▣</div>
+        <h3>Braking</h3>
+        <p>Brake pads, drums, discs, chambers and related parts.</p>
+      </article>
+
+      <article class="card">
+        <div class="icon">◉</div>
+        <h3>Truck Tyres</h3>
+        <p>Commercial tyres for trucks, trailers and fleet applications.</p>
+      </article>
+
+      <article class="card">
+        <div class="icon">↗</div>
+        <h3>Suspension</h3>
+        <p>Shock absorbers, air suspension and suspension components.</p>
+      </article>
+
+      <article class="card">
+        <div class="icon">⚡</div>
+        <h3>Electrical</h3>
+        <p>Starters, alternators, lights, batteries and electrical parts.</p>
+      </article>
+
+      <article class="card">
+        <div class="icon">🔧</div>
+        <h3>Workshop Parts</h3>
+        <p>Steering, drivetrain, cooling and general service parts.</p>
+      </article>
+
+    </div>
+  </div>
+
+</section>
+
+<section id="services" class="dark-section">
+
+  <div class="container service-grid">
+
+    <div>
+      <p class="eyebrow">WHY KJK</p>
+
+      <h2>
+        Parts for the work that keeps business moving.
+      </h2>
+    </div>
+
+    <div class="service-list">
+
+      <div>
+        <b>Fleet Support</b>
+        <span>
+          Source multiple parts for your vehicles and keep downtime low.
+        </span>
+      </div>
+
+      <div>
+        <b>Tyre Supply</b>
+        <span>
+          Commercial tyre options for different truck and trailer requirements.
+        </span>
+      </div>
+
+      <div>
+        <b>Quote Enquiries</b>
+        <span>
+          Send your requirements and request a quotation.
+        </span>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<section id="about" class="section about">
+
+  <div class="container narrow">
+
+    <p class="eyebrow">KJK LOGISTICS</p>
+
+    <h2>Your truck. Our parts.</h2>
+
+    <p>
+      KJK Logistics is being built as a digital storefront for truck
+      spares, tyres and commercial vehicle parts.
+    </p>
+
+  </div>
+
+</section>
+
+<section id="contact" class="section contact">
+
+  <div class="container contact-grid">
+
+    <div>
+      <p class="eyebrow">CONTACT</p>
+
+      <h2>Need a part?</h2>
+
+      <p>
+        Send your vehicle details, part name or part number and quantity
+        for a quotation.
+      </p>
+    </div>
+
+    <form id="quoteForm">
+
+      <label>
+        Name
+        <input name="name" required>
+      </label>
+
+      <label>
+        Phone / WhatsApp
+        <input name="phone" required>
+      </label>
+
+      <label>
+        Part requirements
+        <textarea
+          name="message"
+          rows="5"
+          required
+          placeholder="Example: Volvo FH brake pads, quantity 2 sets">
+        </textarea>
+      </label>
+
+      <button class="primary" type="submit">
+        Send Enquiry
+      </button>
+
+      <p id="formStatus"></p>
+
+    </form>
+
+  </div>
+
+</section>
+
+</main>
+
+<footer>
+
+  <div class="container footer">
+
+    <span>
+      © <span id="year"></span> KJK Logistics
+    </span>
+
+    <span>
+      Truck Spares • Tyres • Parts
+    </span>
+
+  </div>
+
+</footer>
+
+<script src="app.js"></script>
+
+</body>
+  </html>
