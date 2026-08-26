@@ -1,1 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>KJK Logistics | Truck Parts Catalogue</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="products.css">
+</head>
 
+<body>
+
+<header class="topbar">
+  <div class="container nav">
+    <a class="brand" href="index.html">KJK <span>LOGISTICS</span></a>
+
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="products.html">Products</a>
+      <a href="index.html#services">Services</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+
+    <a class="quote-btn" href="cart.html">
+      Quote Basket (<span id="cartCount">0</span>)
+    </a>
+  </div>
+</header>
+
+<main>
+
+<section class="catalogue-header">
+  <div class="container">
+    <p class="eyebrow">KJK LOGISTICS</p>
+    <h1>Truck Parts Catalogue</h1>
+    <p>
+      Find truck spares, commercial vehicle parts and tyres.
+      Select products to add them to your quotation basket.
+    </p>
+  </div>
+</section>
+
+<section class="catalogue">
+
+  <div class="container">
+
+    <div class="catalogue-tools">
+
+      <input
+        id="search"
+        type="search"
+        placeholder="Search part, brand or part number..."
+      >
+
+      <select id="category">
+        <option value="all">All Categories</option>
+        <option value="engine">Engine Parts</option>
+        <option value="brakes">Braking</option>
+        <option value="clutch">Clutch</option>
+        <option value="gearbox">Gearbox & Transmission</option>
+        <option value="suspension">Suspension</option>
+        <option value="steering">Steering</option>
+        <option value="electrical">Electrical</option>
+        <option value="cooling">Cooling</option>
+        <option value="filters">Filters</option>
+        <option value="lighting">Lighting</option>
+        <option value="tyres">Truck Tyres</option>
+        <option value="trailer">Trailer Parts</option>
+      </select>
+
+    </div>
+
+    <div id="productGrid" class="product-grid"></div>
+
+  </div>
+
+</section>
+
+</main>
+
+<footer>
+  <div class="container footer">
+    <span>© <span id="year"></span> KJK Logistics</span>
+    <span>Truck Spares • Tyres • Parts</span>
+  </div>
+</footer>
+
+<script src="products.js"></script>
+
+</body>
+</html>
